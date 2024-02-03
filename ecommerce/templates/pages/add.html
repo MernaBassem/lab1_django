@@ -1,8 +1,5 @@
 {% extends "base.html" %} {% block content %} {% load static %}
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,67 +13,64 @@
     <main >
         <div class="container my-5">
             <h1 class="text-success mb-3 fs1 text-decoration-underline  text-center fw-bold">ADD PRODUCT</h1>
-            <form >
+            <form method='post'>
+                {% csrf_token %}
                 <div class="my-3">
                     <label for="nameInput" class="fs-4 form-label">
                         Name
                     </label>
                     <input
+                        placeholder='Enter The Name'
                         type="text"
                         class="form-control"
                         id="nameInput"
-                       
+                        require
                         name="name"
                     />
             
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="fs-4 form-label">
-                        Email
+                    <label for="category" class="fs-4 form-label">
+                        Category
                     </label>
                     <input
-                        type="email"
+                        placeholder = 'Enter The Category'
+                        type="text"
                         class="form-control"
-                        id="email"
-                    
-                        name="email"
+                        id="category"
+                        name="category"
+                        require
                     />
                
                 </div>
                 <div class="mb-3">
-                    <label for="userName" class="fs-4 form-label">
-                        UserName
+                    <label for="price" class="fs-4 form-label">
+                        Price
                     </label>
                     <input
-                        type="text"
+                    placeholder='Enter The Price'
+                        type="number"
                         class="form-control"
-                        id="userName"
-                        name="userName"
+                        id="price"
+                        name="price"
+                        require
                     />
           
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="fs-4 form-label">
-                        Password
+                    <label for="image" class="fs-4 form-label">
+                        Image URL
                     </label>
                     <input
-                        type="password"
+                        placeholder='Enter The Image URL'
+                        type="text"
                         class="form-control"
-                        id="password"
-                        name="password"
+                        id="image"
+                        name="image"
+                        require
                     />
                 
                 </div>
-                <div class="mb-3">
-                    <label for="c_password" class="fs-4 form-label">
-                        Confirm Password
-                    </label>
-                    <input
-                        type="password"
-                        class="form-control"
-                        id="c_password"
-                        name="c_password"
-                    />
           
                 </div>
                 <div class='d-flex justify-content-center aligns-items-center'>

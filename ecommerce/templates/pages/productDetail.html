@@ -6,6 +6,8 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Category</th>
         <th scope="col">Image</th>
       </tr>
     </thead>
@@ -13,11 +15,13 @@
       <tr>
         <td>{{ product.id }}</td>
         <td>{{ product.title }}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.category }}</td>
         <td>
           <img
             width="120px"
             height="80px"
-            src="{{ product.thumbnail }}"
+            src="{{ product.image }}"
           />
         </td>
       </tr>
