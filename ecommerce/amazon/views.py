@@ -188,6 +188,11 @@ def product(request):
     context = {'products': products}
     return render(request, 'pages/product.html', context)
 
+
+def add(request):
+    return render(request, 'pages/add.html')
+
+
 def productDetail(request, productID):
     product = next((p for p in products if p['id'] == productID), None)
     context = {'product': product}
