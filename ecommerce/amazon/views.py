@@ -33,7 +33,7 @@ def addForm(request):
         form=ProductForm(request,request.POST,request.FILES)
         if(form.is_valid):
                 Product.objects.create(title=request.POST['title'],
-                            category=request.POST['category'],
+                            category=Category.objects.get(id=request.POST['category']),
                             price=request.POST['price'],
                             image=request.POST['image'],
                             img=request.FILES['img']
