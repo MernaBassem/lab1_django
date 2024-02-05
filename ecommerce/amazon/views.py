@@ -25,74 +25,25 @@ def add(request):
         return redirect('product') 
     return render(request, 'pages/add.html')
 
-# ----------------------
-
-
-
+# -------------------------------------------------------------
 def addForm(request):
     form = ProductForm()
     context={'form':form}
-    if(request.method=="POST"):
-        
-        Product.objects.create(title=request.POST['title'],
-                                category=request.POST['category'],
-                                price=request.POST['price'],
-                                image=request.POST['image'],
-                                img=request.FILES['img']
-                                )    
-        return redirect('product') 
+    if request.method == "POST":
+        form=ProductForm(request,request.POST,request.FILES)
+        if(form.is_valid):
+                Product.objects.create(title=request.POST['title'],
+                            category=request.POST['category'],
+                            price=request.POST['price'],
+                            image=request.POST['image'],
+                            img=request.FILES['img']
+                            ) 
+                
+                return HttpResponseRedirect(reverse("product"))
+        else:
+            context['msg']="complete your data please!"
     return render(request, 'pages/addForm.html',context)
-# -------------------------------------------------------------
-# def addForm(request):
-#     form = ProductForm()
-#     context={'form':form}
-#     if request.method == "POST":
-#         form=ProductForm(request,request.POST,request.FILES)
-#         if(form.is_valid()):
-#             Product.objects.create(title=request.POST['title'],
-#                         category=request.POST['category'],
-#                         price=request.POST['price'],
-#                         image=request.POST['image'],
-#                         img=request.FILES['img']
-#                         ) 
-         
-#             return HttpResponseRedirect(reverse("product"))
-#         else:
-#             context['msg']="complete your data please!"
-#     return render(request, 'pages/addForm.html',context)
 # ---------------------------------------------------------------
-
-
-# def addForm(request):
-#     form = ProductForm()
-#     context={'form':form}
-#     if request.method == "POST":
-#         form=ProductForm(request,request.POST,request.FIELS)
-#         if(form.is_valid()):
-
-#             product_id = request.POST.get('id')
-#             title = request.POST.get('title')
-#             price = request.POST.get('price')
-#             category = request.POST.get('category')
-#             image = request.POST.get('image') 
-#             img = request.FILES.get('img') 
-
-        
-#             Product.objects.create(
-#                 id=product_id,
-#                 title=title,
-#                 price=price,
-#                 category=category,
-#                 image=image,
-#                 img=img
-#             )
-#             r=reverse("product")
-#             return HttpResponseRedirect(r)
-#         else:
-#             context['msg']="complete your data please!"
-#     return render(request, 'pages/addForm.html',context)
-  
-
 
 
 
