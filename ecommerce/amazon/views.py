@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect , reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Product
 from django.shortcuts import render, get_object_or_404
-
+from .forms import *
 def product(request):
     query = request.GET.get('search', '') 
     
@@ -16,20 +16,90 @@ def product(request):
 
 def add(request):
     if(request.method=="POST"):
-        Product.objects.create(title=request.POST['name'],
+        Product.objects.create(title=request.POST['title'],
                                 category=request.POST['category'],
                                 price=request.POST['price'],
-                                image=request.POST['image']
+                                image=request.POST['image'],
+                                img=request.FILES['img']
                                 )    
         return redirect('product') 
     return render(request, 'pages/add.html')
+
+# ----------------------
+
+
+
+def addForm(request):
+    form = ProductForm()
+    context={'form':form}
+    if(request.method=="POST"):
+        
+        Product.objects.create(title=request.POST['title'],
+                                category=request.POST['category'],
+                                price=request.POST['price'],
+                                image=request.POST['image'],
+                                img=request.FILES['img']
+                                )    
+        return redirect('product') 
+    return render(request, 'pages/addForm.html',context)
+# -------------------------------------------------------------
+# def addForm(request):
+#     form = ProductForm()
+#     context={'form':form}
+#     if request.method == "POST":
+#         form=ProductForm(request,request.POST,request.FILES)
+#         if(form.is_valid()):
+#             Product.objects.create(title=request.POST['title'],
+#                         category=request.POST['category'],
+#                         price=request.POST['price'],
+#                         image=request.POST['image'],
+#                         img=request.FILES['img']
+#                         ) 
+         
+#             return HttpResponseRedirect(reverse("product"))
+#         else:
+#             context['msg']="complete your data please!"
+#     return render(request, 'pages/addForm.html',context)
+# ---------------------------------------------------------------
+
+
+# def addForm(request):
+#     form = ProductForm()
+#     context={'form':form}
+#     if request.method == "POST":
+#         form=ProductForm(request,request.POST,request.FIELS)
+#         if(form.is_valid()):
+
+#             product_id = request.POST.get('id')
+#             title = request.POST.get('title')
+#             price = request.POST.get('price')
+#             category = request.POST.get('category')
+#             image = request.POST.get('image') 
+#             img = request.FILES.get('img') 
+
+        
+#             Product.objects.create(
+#                 id=product_id,
+#                 title=title,
+#                 price=price,
+#                 category=category,
+#                 image=image,
+#                 img=img
+#             )
+#             r=reverse("product")
+#             return HttpResponseRedirect(r)
+#         else:
+#             context['msg']="complete your data please!"
+#     return render(request, 'pages/addForm.html',context)
+  
+
+
 
 
 def delete_product(request, product_id):
     product_to_delete = get_object_or_404(Product, pk=product_id)
     product_to_delete.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-
 
 def productDetail(request, productID):
     product = next((p for p in Product.objects.all() if p.id == productID), None)
@@ -40,17 +110,34 @@ def productDetail(request, productID):
 
 def update(request, productID):
     product = get_object_or_404(Product, id=productID)
+    context = {'product': product}
 
     if request.method == 'POST':
-        product.title = request.POST['name']
-        product.category = request.POST['category']
-        product.price = request.POST['price']
-        product.image = request.POST['image']
-        product.save()
+        name = request.POST['name']
+        category = request.POST['category']
+        price = request.POST['price']
+        image = request.POST['image']
 
-        return redirect('productDetail', productID=product.id)
-    context = {'product': product}
+        if name and category and price and image:
+            product.title = name
+            product.category = category
+            product.price = price
+            product.image = image
+            product.save()
+            return redirect('productDetail', productID=product.id)
+        else:
+            if(request.POST['name'] == '') : 
+              product.title = ''
+            if(request.POST['category'] == '') : 
+              product.category = ''
+            if(request.POST['price'] == '') : 
+              product.price = ''
+            if(request.POST['image'] == '') : 
+              product.image = ''
+            context['msg'] = 'All fields are required'
+
     return render(request, 'pages/update.html', context)
+
 
 def category(request):
     context = {'products': Product.objects.all()}

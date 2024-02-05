@@ -13,7 +13,7 @@
     <main >
         <div class="container my-5">
             <h1 class="text-success mb-3 fs1 text-decoration-underline  text-center fw-bold">ADD PRODUCT</h1>
-            <form method='post'>
+            <form method='post' enctype='multipart/form-data'>
                 {% csrf_token %}
                 <div class="my-3">
                     <label for="nameInput" class="fs-4 form-label">
@@ -25,7 +25,7 @@
                         class="form-control"
                         id="nameInput"
                         require
-                        name="name"
+                        name="title"
                     />
             
                 </div>
@@ -67,6 +67,20 @@
                         class="form-control"
                         id="image"
                         name="image"
+                        require
+                    />
+                
+                </div>
+                <div class="mb-3">
+                    <label for="img" class="fs-4 form-label">
+                        Image File
+                    </label>
+                    <input
+                        placeholder='Enter The Image URL'
+                        type="file"
+                        class="form-control"
+                        id="img"
+                        name="img"
                         require
                     />
                 
