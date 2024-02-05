@@ -1,4 +1,7 @@
-{% extends "base.html" %} {% block content %} {% load static %}
+{% extends "base.html" %} 
+{% block content %} 
+{% load static %}
+
 <div class="container ms-auto py-5">
   <h1>Product Detail</h1>
   <table class="table table-bordered px-2 table-striped">
@@ -9,7 +12,7 @@
         <th scope="col">Price</th>
         <th scope="col">Category</th>
         <th scope="col">ImageURL</th>
-      
+        <th scope="col">ImageFile</th>
       </tr>
     </thead>
     <tbody class="fs-5">
@@ -25,8 +28,24 @@
             src="{{ product.image }}"
           />
         </td>
+        <td>
+          {% if product.img.url %}
+            <img
+              width="120px"
+              height="80px"
+              src="{{ product.img.url }}"
+            />
+          {% else %}
+            Image not available
+          {% endif %}
+        </td>
       </tr>
     </tbody>
   </table>
 </div>
+
+<script>
+  console.log("Image URL: {{ product.img.url }}");
+</script>
+
 {% endblock %}

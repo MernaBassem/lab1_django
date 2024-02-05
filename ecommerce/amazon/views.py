@@ -68,12 +68,13 @@ def update(request, productID):
         category = request.POST['category']
         price = request.POST['price']
         image = request.POST['image']
-
-        if name and category and price and image:
+        img = request.FILES['img']
+        if name and category and price and image and img:
             product.title = name
             product.category = category
             product.price = price
             product.image = image
+            product.img = img
             product.save()
             return redirect('productDetail', productID=product.id)
         else:
@@ -84,7 +85,9 @@ def update(request, productID):
             if(request.POST['price'] == '') : 
               product.price = ''
             if(request.POST['image'] == '') : 
-              product.image = ''
+              product.image = ''   
+            if(request.POST['img'] == '') : 
+              product.img = ''
             context['msg'] = 'All fields are required'
 
     return render(request, 'pages/update.html', context)

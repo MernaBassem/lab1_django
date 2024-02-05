@@ -10,3 +10,12 @@ class ProductForm(forms.Form):
     img = forms.ImageField(required=True)
  
  
+# def clean_name(self):
+#     user_name=self.cleaned_data['title']
+#     obj=Product.objects.get(title=user_name).exsists()
+    
+#     if(obj):
+#         raise ValidationError("must be unique")
+#     else:
+#         return True
+    
