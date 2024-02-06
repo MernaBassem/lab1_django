@@ -47,7 +47,9 @@
           {%endif%}
 
 
-
+          <button class='btn btn-success py-2 px-3 fs-4 mt-3'> 
+            <a class='text-light text-decoration-none' href="{% url 'myRegister'%}">Register</a>
+          </button>
 
         </div>
         <input type='text'  id="searchInput" oninput="search(this.value)" placeholder='Search By Name' class='w-100 py-3 px-4 border my-4' value="{{ search_value }}" />
