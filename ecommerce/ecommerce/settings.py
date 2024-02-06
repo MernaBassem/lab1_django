@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'amazon.apps.AmazonConfig',
+    'account.apps.AccountConfig',
     'category.apps.CategoryConfig',
     'django.contrib.admin',
     'django.contrib.auth',

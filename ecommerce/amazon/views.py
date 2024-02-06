@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect , reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Product
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+
 from .forms import *
 def product(request):
     query = request.GET.get('search', '') 
@@ -13,7 +15,7 @@ def product(request):
 
     context = {'products': products, 'search_value': query}
     return render(request, 'pages/product.html', context)
-
+@login_required()
 def add(request):
     if(request.method=="POST"):
         Product.objects.create(title=request.POST['title'],
@@ -26,6 +28,7 @@ def add(request):
     return render(request, 'pages/add.html')
 
 # -------------------------------------------------------------
+@login_required()
 def addForm(request):
     form = ProductForm()
     context={'form':form}
@@ -46,7 +49,7 @@ def addForm(request):
 # ---------------------------------------------------------------
 
 
-
+@login_required()
 def delete_product(request, product_id):
     product_to_delete = get_object_or_404(Product, pk=product_id)
     product_to_delete.delete()
@@ -58,7 +61,7 @@ def productDetail(request, productID):
     if product:
         return render(request, 'pages/productDetail.html', context)
     return HttpResponse('<span style="color:red">Product not found</span>')
-
+@login_required()
 def update(request, productID):
     product = get_object_or_404(Product, id=productID)
     context = {'product': product}
@@ -68,13 +71,12 @@ def update(request, productID):
         category = request.POST['category']
         price = request.POST['price']
         image = request.POST['image']
-        img = request.FILES['img']
-        if name and category and price and image and img:
+
+        if name and category and price and image:
             product.title = name
             product.category = category
             product.price = price
             product.image = image
-            product.img = img
             product.save()
             return redirect('productDetail', productID=product.id)
         else:
@@ -85,9 +87,7 @@ def update(request, productID):
             if(request.POST['price'] == '') : 
               product.price = ''
             if(request.POST['image'] == '') : 
-              product.image = ''   
-            if(request.POST['img'] == '') : 
-              product.img = ''
+              product.image = ''
             context['msg'] = 'All fields are required'
 
     return render(request, 'pages/update.html', context)
