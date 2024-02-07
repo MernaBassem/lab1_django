@@ -34,12 +34,14 @@ INSTALLED_APPS = [
     'amazon.apps.AmazonConfig',
     'account.apps.AccountConfig',
     'category.apps.CategoryConfig',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
 ]
 
 MIDDLEWARE = [
