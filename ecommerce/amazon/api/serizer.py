@@ -11,3 +11,12 @@ class productSerlizer(serializers.Serializer):
     
     def create(self,validates_data):
       return  Product.objects.create(validates_data)
+  
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get('title')
+        instance.price = validated_data.get('price')
+        instance.category = validated_data.get('category')
+        instance.image = validated_data.get('image')
+        instance.img = validated_data.get('img')
+        instance.save()
+        return instance

@@ -7,4 +7,6 @@ urlpatterns = [
      path('all/',all,name='all') ,
      path('getProduct/<int:id>/',getProduct,name='getProduct') ,
      path('AddProduct/',AddProduct,name='AddProduct') ,
+     path('UpdateProduct/<int:id>/',UpdateProduct,name='UpdateProduct'),
+
 ]
