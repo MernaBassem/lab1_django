@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.urls import reverse_lazy
-# from django.views.generic import UpdateView , ListView
+from django.views.generic import UpdateView 
 
 from django.views.generic.detail import DetailView
 from .models import Product
@@ -57,12 +57,12 @@ def addForm(request):
 
 # -----------------------------------------------
 # @login_required
-# class ProductUpdateView(UpdateView):
-#     model=Product
-#     template_name = 'pages/updateForms.html'
-#     context_object_name='form'
-#     form_class= ProductForm
-#     success_url=reverse_lazy('product')
+class productUpdateView(UpdateView):
+    model=Product
+    template_name = 'pages/updateForms.html'
+    context_object_name='form'
+    form_class= ProductForm
+    success_url=reverse_lazy('product')
     
 
 #-----------------------------------

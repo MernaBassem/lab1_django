@@ -95,9 +95,9 @@
                 <button class='btn btn-danger py-2 px-3 fs-4' onclick='remove({{ pro.id }})'> Delete</button>
 
                 <br/>
-                {% comment %} <button class='btn btn-success py-2 px-3 fs-4 mt-3'> 
-                  <a class='text-light text-decoration-none' href="{% url 'ProductUpdateView' pro.id %}">Update</a>
-                </button> {% endcomment %}
+                <button class='btn btn-success py-2 px-3 fs-4 mt-3'> 
+                  <a class='text-light text-decoration-none' href="{% url 'productUpdateView' pro.id %}">Update</a>
+                </button>
               </td>
             </tr>
             {% endfor %}

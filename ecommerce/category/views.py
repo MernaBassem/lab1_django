@@ -17,13 +17,6 @@ def categoryList(request):
     context = {'Categorys': Categorys, 'search_value': query}
     return render(request, 'pages/categoryList.html', context)
 @login_required()
-# def addCategory(request):
-#     if(request.method=="POST"):
-#         Category.objects.create(title=request.POST['title'],
-#                                 )    
-#         return redirect('categoryList') 
-#     return render(request, 'pages/addCategory.html')
-
 
 
 def addCategory(request):
@@ -44,12 +37,6 @@ class categoryUpdateView(UpdateView):
     template_name = 'pages/categoryUpdate.html'
     form_class = CategoryForm
     success_url = reverse_lazy('categoryList')
-
-# @login_required()
-# def delete_category(request, category_id):
-#     Category_to_delete = get_object_or_404(Category, pk=category_id)
-#     Category_to_delete.delete()
-#     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 class delete_category(DeleteView):
     model = Category
