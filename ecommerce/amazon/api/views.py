@@ -48,3 +48,13 @@ def UpdateProduct(request, id):
             product.save()
             return Response(product.data)
     return Response({'msg': ''})
+
+
+@api_view(['DELETE'])
+def DeleteProduct(request, id):
+    deleteProduct = Product.objects.filter(id=id).first()
+    if deleteProduct:
+        deleteProduct.delete()
+        return Response({'msg': 'Product deleted'})
+    return Response({'msg': 'Product not found'})
+
