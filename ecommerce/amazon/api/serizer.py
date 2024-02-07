@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from amazon.models import Product
+
 
 class productSerlizer(serializers.Serializer):
     id=serializers.IntegerField(read_only=True)
@@ -6,3 +8,6 @@ class productSerlizer(serializers.Serializer):
     category =  serializers.CharField(max_length=50)
     image = serializers.CharField(max_length=150)
     img = serializers.ImageField()
+    
+    def create(self,validates_data):
+      return  Product.objects.create(validates_data)
