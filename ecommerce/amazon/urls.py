@@ -1,18 +1,23 @@
 from django.urls import path
-from . import views
-# from django.conf import settings
-# from django.conf.urls.static import static
+from .views import *
+
 
 urlpatterns = [
-    path('', views.product, name='product'),
-    path('add/', views.add, name='add'),
-    path('addForm', views.addForm, name='addForm'),
-    path('delete_product/<int:product_id>/', views.delete_product, name='delete_product'),
-    path('productDetail/<int:productID>/', views.productDetail, name='productDetail'),
-    path('update/<int:productID>/', views.update, name='update'),
-    path('about/', views.about, name='about'),
-    path('category/', views.category, name='category'),
+    path('',product, name='product'),
+    path('add/',add, name='add'),
+    path('addForm/',addForm, name='addForm'),
+    path('delete_product/<int:product_id>/',delete_product, name='delete_product'),
+    # path('<pk>', productDetail.as_view(), name='productDetail'),
+    path('<pk>', ProductDetailView.as_view(), name='productDetail'),
+    # path('productDetail/<int:productID>/', productDetail, name='productDetail'),
+    # path('UpdateForm/<int:productID>/',UpdateForm, name='ProductUpdateView'),
+    path('about/',about, name='about'),
+    path('category/', category, name='category'),
+
+
 ]
 
-# if settings.DEBUG:
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+   # path('update/<int:productID>/', views.update, name='update'),
+    # path('UpdateForm/<int:productID>/', views.UpdateForm, name='UpdateForm'),
+
+
