@@ -77,25 +77,6 @@ class ProductDetailView(DetailView):
     model = Product
     template_name = 'pages/productDetail.html'
     context_object_name = 'product'
-    
-    
-    
-# def productDetail(request, productID):
-#     product = next((p for p in Product.objects.all() if p.id == productID), None)
-#     context = {'product': product}
-#     if product:
-#         return render(request, 'pages/productDetail.html', context)
-#     return HttpResponse('<span style="color:red">Product not found</span>')
-
-# ---------------------
-
-# class productDetail(ListView):
-#     model = Product
-#     template_name = 'pages/productDetail.html'
-#     context_object_name = 'product'
-
-
-
 
 def category(request):
     context = {'products': Product.objects.all()}
@@ -103,51 +84,4 @@ def category(request):
 
 def about(request):
     return render(request, 'pages/about.html')
-
-
-# @login_required()
-# def update(request, productID):
-#     product = get_object_or_404(Product, id=productID)
-#     context = {'product': product}
-
-#     if request.method == 'POST':
-#         name = request.POST['name']
-#         category = request.POST['category']
-#         price = request.POST['price']
-#         image = request.POST['image']
-
-#         if name and category and price and image:
-#             product.title = name
-#             product.category = category
-#             product.price = price
-#             product.image = image
-#             product.save()
-#             return redirect('productDetail', productID=product.id)
-#         else:
-#             if(request.POST['name'] == '') : 
-#               product.title = ''
-#             if(request.POST['category'] == '') : 
-#               product.category = ''
-#             if(request.POST['price'] == '') : 
-#               product.price = ''
-#             if(request.POST['image'] == '') : 
-#               product.image = ''
-#             context['msg'] = 'All fields are required'
-
-#     return render(request, 'pages/update.html', context)
-#--------------update
-
-
-# @login_required
-# def UpdateForm(request, productID):
-#     product = Product.objects.get(id=productID)
-#     if request.method == "POST":
-#         form = ProductForm(request.POST, request.FILES, instance=product)
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect(reverse("product"))
-#     else:
-#         form = ProductForm(instance=product)
-#     return render(request, 'pages/updateForm.html', {'form': form})
-
 

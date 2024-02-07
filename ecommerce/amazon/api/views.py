@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 from amazon.models import *
 from .serizer import *
 
+
 @api_view(['GET'])
 def Hello(request):
     return Response({'msg':'hello Merna'})
@@ -20,4 +21,10 @@ def all(request) :
     data = Product.objects.all()
     datajson=productSerlizer(data,many=True).data
     return Response({'msg':'ACCEPT DATA','data':datajson})
-    
+
+
+@api_view(['GET'])
+def getProduct(request,id) :
+    datajson=productSerlizer( Product.get_product_detail(id)).data
+    return Response({'msg':'ACCEPT DATA','data':datajson})
+ 
